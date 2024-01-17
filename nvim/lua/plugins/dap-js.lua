@@ -1,3 +1,5 @@
+-- Credits: https://www.youtube.com/watch?v=Ul_WPhS2bis&lc=Ugwp8X3848cHktOyZHd4AaABAg.9zbDDELAUvj9zbLxkQ5-WJ.
+
 local js_based_languages = {
   "typescript",
   "javascript",
