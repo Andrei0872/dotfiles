@@ -17,12 +17,13 @@ return {
       servers = {
         -- tsserver will be automatically installed with mason and loaded with lspconfig
         tsserver = {},
+        cssls = {},
       },
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
         tsserver = function(_, opts)
-          local util = require("lspconfig.util")
-          opts.root_dir = util.root_pattern(".git")
+          -- local util = require("lspconfig.util")
+          -- opts.root_dir = util.root_pattern(".git")
           require("typescript").setup({ server = opts })
 
           return true
