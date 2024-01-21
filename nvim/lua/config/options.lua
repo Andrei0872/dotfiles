@@ -1,3 +1,16 @@
--- Options are automatically loaded before lazy.nvim startup
--- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
--- Add any additional options here
+
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
+local opt = vim.opt
+
+opt.autowrite = true 
+opt.number = true
+opt.relativenumber = true
+
+opt.shiftwidth = 2
+opt.tabstop = 2
+opt.shiftround = true
+
+opt.ignorecase = true
+opt.inccommand = "nosplit"
