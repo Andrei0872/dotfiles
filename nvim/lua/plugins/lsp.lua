@@ -9,7 +9,7 @@ return {
       local util = require("lspconfig.util")
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local handlers = {
-        ["textDocument/publishDiagnostics"] = function() end,
+        -- ["textDocument/publishDiagnostics"] = function() end,
       },
 
       require("mason").setup()
