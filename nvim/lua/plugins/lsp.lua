@@ -7,6 +7,7 @@ return {
 		},
 		config = function()
 			local util = require("lspconfig.util")
+			local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 			require("mason").setup()
 			require("mason-lspconfig").setup({
@@ -39,11 +40,13 @@ return {
 						client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
 					end
 					return true
-				end
+				end,
+				capabilities = capabilities
 			}
 
 			require'lspconfig'.tsserver.setup{
-				root_dir = util.root_pattern(".git")
+				root_dir = util.root_pattern(".git"),
+				capabilities = capabilities
 			}
 		end
 	}
