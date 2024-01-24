@@ -8,6 +8,9 @@ return {
 		config = function()
 			local util = require("lspconfig.util")
 			local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      local handlers = {
+        ["textDocument/publishDiagnostics"] = function() end,
+      },
 
 			require("mason").setup()
 			require("mason-lspconfig").setup({
@@ -41,12 +44,14 @@ return {
 					end
 					return true
 				end,
-				capabilities = capabilities
+				capabilities = capabilities,
+        handlers = handlers
 			}
 
 			require'lspconfig'.tsserver.setup{
 				root_dir = util.root_pattern(".git"),
-				capabilities = capabilities
+				capabilities = capabilities,
+        handlers = handlers,
 			}
 		end
 	}
