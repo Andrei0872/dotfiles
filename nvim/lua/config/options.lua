@@ -11,6 +11,8 @@ opt.relativenumber = true
 opt.shiftwidth = 2
 opt.tabstop = 2
 opt.shiftround = true
+opt.smartindent = true
+opt.expandtab = true
 
 opt.ignorecase = true
 opt.inccommand = "nosplit"
