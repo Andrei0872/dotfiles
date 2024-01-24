@@ -1,12 +1,14 @@
 return {
-	'nvim-telescope/telescope.nvim', tag = '0.1.5',
+	"nvim-telescope/telescope.nvim",
+	tag = "0.1.5",
 	cmd = "Telescope",
 	version = false,
 	dependencies = {
-		{ 'nvim-lua/plenary.nvim' },
-		{ 'nvim-telescope/telescope-fzf-native.nvim',
-			build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
-		}
+		{ "nvim-lua/plenary.nvim" },
+		{
+			"nvim-telescope/telescope-fzf-native.nvim",
+			build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+		},
 	},
 	keys = {
 		{
@@ -66,11 +68,29 @@ return {
 			desc = "Goto Symbol (Workspace)",
 		},
 		{ "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
-		{ "gd", function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end, desc = "Goto Definition"  },
+		{
+			"gd",
+			function()
+				require("telescope.builtin").lsp_definitions({ reuse_win = true })
+			end,
+			desc = "Goto Definition",
+		},
 		{ "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
 		{ "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
-		{ "gI", function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end, desc = "Goto Implementation" },
-		{ "gy", function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, desc = "Goto T[y]pe Definition" },
+		{
+			"gI",
+			function()
+				require("telescope.builtin").lsp_implementations({ reuse_win = true })
+			end,
+			desc = "Goto Implementation",
+		},
+		{
+			"gy",
+			function()
+				require("telescope.builtin").lsp_type_definitions({ reuse_win = true })
+			end,
+			desc = "Goto T[y]pe Definition",
+		},
 		{ "K", vim.lsp.buf.hover, desc = "Hover" },
 		{ "gK", vim.lsp.buf.signature_help, desc = "Signature Help" },
 		{ "<c-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help" },
@@ -88,9 +108,9 @@ return {
 				})
 			end,
 			desc = "Source Action",
-		}
+		},
 	},
 	config = function()
-		require('telescope').load_extension('fzf')
-	end
+		require("telescope").load_extension("fzf")
+	end,
 }
