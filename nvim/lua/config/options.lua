@@ -40,3 +40,4 @@ opt.fillchars = {
   diff = "╱",
   eob = " ",
 }
+opt.guicursor = ""
