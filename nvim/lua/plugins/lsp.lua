@@ -5,11 +5,20 @@ return {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
     },
+    keys = {
+      { "<leader>sr", "<cmd>:lua vim.lsp.buf.rename()<cr>", desc = "Rename symbol" },
+    },
     config = function()
       local util = require("lspconfig.util")
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local handlers = {
-        -- ["textDocument/publishDiagnostics"] = function() end,
+        ["textDocument/publishDiagnostics"] = function(a, b, c, d)
+          local pp = require 'pl.pretty'
+          pp.dump(a or {})
+          pp.dump(b or {})
+          pp.dump(c or {})
+          pp.dump(d or {})
+        end,
       },
 
       require("mason").setup()
