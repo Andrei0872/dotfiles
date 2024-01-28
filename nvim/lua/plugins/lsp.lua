@@ -4,6 +4,11 @@ return {
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
+      {
+        "b0o/SchemaStore.nvim",
+        lazy = true,
+        version = false,
+      },
     },
     keys = {
       { "<leader>sr", "<cmd>:lua vim.lsp.buf.rename()<cr>", desc = "Rename symbol" },
@@ -29,6 +34,7 @@ return {
           "html",
           "cssls",
           "cssmodules_ls",
+          "jsonls",
         }
       })
 
@@ -78,7 +84,26 @@ return {
         capabilities = capabilities,
         handlers = handlers,
       }
+
       require'lspconfig'.cssmodules_ls.setup{
+        capabilities = capabilities,
+        handlers = handlers,
+      }
+
+      require'lspconfig'.jsonls.setup{
+        -- lazy-load schemastore when needed
+        on_new_config = function(new_config)
+          new_config.settings.json.schemas = new_config.settings.json.schemas or {}
+          vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
+        end,
+        settings = {
+          json = {
+            format = {
+              enable = true,
+            },
+            validate = { enable = true },
+          },
+        },
         capabilities = capabilities,
         handlers = handlers,
       }
