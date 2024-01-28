@@ -9,6 +9,7 @@ return {
         lazy = true,
         version = false,
       },
+      "WhoIsSethDaniel/mason-tool-installer.nvim"
     },
     keys = {
       { "<leader>sr", "<cmd>:lua vim.lsp.buf.rename()<cr>", desc = "Rename symbol" },
@@ -37,6 +38,16 @@ return {
           "jsonls",
         }
       })
+      require('mason-tool-installer').setup{
+        ensure_installed = {
+          "eslint_d",
+          "htmlhint",
+          "stylelint",
+          "prettier",
+          "prettierd",
+          "stylua"
+        }
+      }
 
       require'lspconfig'.lua_ls.setup{
         on_init = function(client)
