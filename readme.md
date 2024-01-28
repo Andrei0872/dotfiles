@@ -15,3 +15,13 @@ mkdir ~/.config/nvim
 ```bash
 ln -s -f ~/dotfiles/nvim/* ~/.config/nvim
 ```
+
+* a list
+* b
+* c
+
+1. numbered
+2. 2
+3. 3
+
+This is *some* **text** about the `foo` function.

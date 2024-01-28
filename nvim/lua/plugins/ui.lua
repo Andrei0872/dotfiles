@@ -1,12 +1,10 @@
-  return {
+return {
   {
-    -- "rmehri01/onenord.nvim", -- OK
-    -- "gbprod/nord.nvim",
-    "rmehri01/onenord.nvim",
+    "sainnhe/everforest",
     lazy = false,
     priority = 1000,
     config = function ()
-      vim.cmd([[colorscheme onenord]])
+      vim.cmd([[colorscheme everforest]])
     end
   },
   {
