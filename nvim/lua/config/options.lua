@@ -23,6 +23,7 @@ opt.sidescrolloff = 8
 opt.signcolumn = "yes"
 opt.smartcase = true
 opt.spelllang = { "en" }
+opt.spell = true
 opt.splitbelow = true
 opt.termguicolors = true
 opt.undofile = true
