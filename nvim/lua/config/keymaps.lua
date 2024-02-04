@@ -64,3 +64,12 @@ map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 map("n", "<leader>ww", "<C-W>p", { desc = "Other window", remap = true })
 map("n", "<leader>wd", "<C-W>c", { desc = "Delete window", remap = true })
+
+map("v", "<leader>r", "\"hy:%s/<C-r>h//g<left><left>")
+
+map("n", "<leader>y", '"+y')
+map("v", "<leader>y", '"+y')
+map("n", "<leader>p", '"+p')
+map("v", "<leader>p", '"+p')
+map("n", "<leader>P", '"+P')
+map('v', '<leader>P', '"+P')
