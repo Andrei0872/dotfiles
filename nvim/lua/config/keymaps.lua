@@ -24,6 +24,8 @@ map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
 map("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 map("n", "<leader>wq", "<cmd>bp|bd #<CR>", { desc = "Close Buffer; Retain Split" })
+map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
+map("n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
 
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 
@@ -73,3 +75,4 @@ map("n", "<leader>p", '"+p')
 map("v", "<leader>p", '"+p')
 map("n", "<leader>P", '"+P')
 map('v', '<leader>P', '"+P')
+
