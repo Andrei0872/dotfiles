@@ -3,7 +3,7 @@ vim.g.maplocalleader = "\\"
 
 local opt = vim.opt
 
-opt.autowrite = true 
+opt.autowrite = true
 opt.number = true
 opt.relativenumber = true
 opt.shiftwidth = 2
@@ -25,6 +25,7 @@ opt.smartcase = true
 opt.spelllang = { "en" }
 opt.spell = true
 opt.splitbelow = true
+opt.splitright = true
 opt.termguicolors = true
 opt.undofile = true
 opt.undolevels = 10000

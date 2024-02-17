@@ -66,6 +66,8 @@ map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 map("n", "<leader>ww", "<C-W>p", { desc = "Other window", remap = true })
 map("n", "<leader>wd", "<C-W>c", { desc = "Delete window", remap = true })
+map("n", "<leader>s", "<cmd>:split<cr>")
+map("n", "<leader>v", "<cmd>:vsplit<cr>")
 
 map("v", "<leader>r", "\"hy:%s/<C-r>h//g<left><left>")
 
@@ -78,3 +80,6 @@ map('v', '<leader>P', '"+P')
 
 map('n', '<leader>k', '<cmd>:let @+ = expand("%")<cr>')
 map('n', '<leader>ka', '<cmd>:let @+ = expand("%:p")<cr>')
+
+map("n", "<C-d>", '<C-d>zz')
+map("n", "<C-u>", '<C-u>zz')
