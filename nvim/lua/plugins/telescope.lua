@@ -9,6 +9,10 @@ return {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
     },
+    {
+      "nvim-telescope/telescope-live-grep-args.nvim" ,
+      version = "^1.0.0",
+    },
   },
   keys = {
     {
@@ -23,10 +27,10 @@ return {
     -- { "<leader>fc", Util.telescope.config_files(), desc = "Find Config File" },
     -- { "<leader>ff", Util.telescope("files"), desc = "Find Files (root dir)" },
     -- { "<leader>fF", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
-    { "<leader>fg", "<cmd>Telescope git_files<cr>", desc = "Find Files (git-files)" },
     { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
     -- { "<leader>fR", Util.telescope("oldfiles", { cwd = vim.loop.cwd() }), desc = "Recent (cwd)" },
     -- git
+    { "<leader>gf", "<cmd>Telescope git_files<cr>", desc = "Find Files (git-files)" },
     { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
     { "<leader>gs", "<cmd>Telescope git_status<CR>", desc = "status" },
     { "<leader>gb", "<cmd>Telescope git_bcommits<CR>", desc = "Commits of a file" },
@@ -108,8 +112,35 @@ return {
       end,
       desc = "Source Action",
     },
+    {
+      "<leader>fg",
+      function ()
+        require('telescope').extensions.live_grep_args.live_grep_args()
+      end
+    },
   },
   config = function()
-    require("telescope").load_extension("fzf")
+    local telescope = require("telescope")
+    local lga_actions = require("telescope-live-grep-args.actions")
+
+    telescope.setup{
+      extensions = {
+        live_grep_args = {
+          auto_quoting = true, -- enable/disable auto-quoting
+          -- define mappings, e.g.
+          mappings = { -- extend mappings
+            i = {
+              ["<C-k>"] = lga_actions.quote_prompt(),
+              ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+            },
+          },
+          -- layout_config = { mirror=true }, -- mirror preview pane
+        }
+      }
+    }
+
+    telescope.load_extension("fzf")
+    telescope.load_extension("live_grep_args")
+
   end,
 }
