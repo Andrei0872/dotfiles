@@ -76,3 +76,5 @@ map("v", "<leader>p", '"+p')
 map("n", "<leader>P", '"+P')
 map('v', '<leader>P', '"+P')
 
+map('n', '<leader>k', '<cmd>:let @+ = expand("%")<cr>')
+map('n', '<leader>ka', '<cmd>:let @+ = expand("%:p")<cr>')
