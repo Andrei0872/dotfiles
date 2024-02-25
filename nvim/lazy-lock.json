@@ -9,6 +9,7 @@
   "cmp_luasnip": { "branch": "master", "commit": "05a9ab28b53f71d1aece421ef32fee2cb857a843" },
   "conform.nvim": { "branch": "master", "commit": "3d59cbd01a4b74124c5a6fb23b8cc63e5c2db3d5" },
   "everforest": { "branch": "master", "commit": "89080db9637bb297b4c75ae1511e9f6f61ad9c78" },
+  "friendly-snippets": { "branch": "main", "commit": "dcd4a586439a1c81357d5b9d26319ae218cc9479" },
   "gitsigns.nvim": { "branch": "main", "commit": "2c2463dbd82eddd7dbab881c3a62cfbfbe3c67ae" },
   "lazy.nvim": { "branch": "main", "commit": "28126922c9b54e35a192ac415788f202c3944c9f" },
   "lua-json5": { "branch": "master", "commit": "014fcab8093b48b3932dd0d51ae2d98bbb578d67" },
