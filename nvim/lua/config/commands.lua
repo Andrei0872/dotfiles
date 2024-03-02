@@ -6,3 +6,10 @@ vim.api.nvim_create_user_command('Redir', function(ctx)
   vim.opt_local.modified = false
 end, { nargs = '+', complete = 'command' })
 
+vim.api.nvim_create_autocmd({ "VimResized" }, {
+  callback = function()
+    local current_tab = vim.fn.tabpagenr()
+    vim.cmd("tabdo wincmd =")
+    vim.cmd("tabnext " .. current_tab)
+  end,
+})

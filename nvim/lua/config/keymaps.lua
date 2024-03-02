@@ -68,6 +68,7 @@ map("n", "<leader>ww", "<C-W>p", { desc = "Other window", remap = true })
 map("n", "<leader>wd", "<C-W>c", { desc = "Delete window", remap = true })
 map("n", "<leader>s", "<cmd>:split<cr>")
 map("n", "<leader>v", "<cmd>:vsplit<cr>")
+map("n", "<leader>w=", "<cmd>tabdo wincmd =<cr>", { desc = "Resize splits" })
 
 map("v", "<leader>r", "\"hy:%s/<C-r>h//g<left><left>")
 
