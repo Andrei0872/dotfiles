@@ -84,3 +84,5 @@ map('n', '<leader>ka', '<cmd>:let @+ = expand("%:p")<cr>')
 
 map("n", "<C-d>", '<C-d>zz')
 map("n", "<C-u>", '<C-u>zz')
+
+map('x', '/', '<Esc>/\\%V')
