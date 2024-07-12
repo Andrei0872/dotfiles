@@ -1,7 +1,17 @@
 # dotfiles
 
+## Prerequisites
 
-## Set up
+```bash
+sudo apt install luarocks
+```
+
+Recommended to have installed:
+
+* _ripgrep_
+* _fd_
+
+## Set up Neovim
 
 ```bash
 git clone git@github.com:Andrei0872/dotfiles.git
@@ -16,12 +26,3 @@ mkdir ~/.config/nvim
 ln -s -f ~/dotfiles/nvim/* ~/.config/nvim
 ```
 
-* a list
-* b
-* c
-
-1. numbered
-2. 2
-3. 3
-
-This is *some* **text** about the `foo` function.
