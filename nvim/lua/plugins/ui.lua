@@ -1,10 +1,10 @@
 return {
 	{
-		"slugbyte/lackluster.nvim",
+		"aktersnurra/no-clown-fiesta.nvim",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.cmd.colorscheme("lackluster-night")
+			vim.cmd.colorscheme("no-clown-fiesta")
 		end,
 	},
 	{
