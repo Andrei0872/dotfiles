@@ -1,10 +1,10 @@
 return {
 	{
-		"aktersnurra/no-clown-fiesta.nvim",
+		"rebelot/kanagawa.nvim",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.cmd.colorscheme("no-clown-fiesta")
+			vim.cmd.colorscheme("kanagawa-dragon")
 		end,
 	},
 	{
