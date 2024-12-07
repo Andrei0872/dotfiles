@@ -22,6 +22,7 @@ return {
       require("mason-lspconfig").setup({
         ensure_installed = {
           "lua_ls",
+          "clangd",
           "tsserver",
           "html",
           "cssls",
@@ -36,7 +37,9 @@ return {
           "stylelint",
           "prettier",
           "prettierd",
-          "stylua"
+          "stylua",
+          "cpplint",
+          "clang-format"
         }
       }
 
@@ -101,6 +104,10 @@ return {
             validate = { enable = true },
           },
         },
+        capabilities = capabilities,
+      }
+
+      require'lspconfig'.clangd.setup{
         capabilities = capabilities,
       }
     end

@@ -18,8 +18,10 @@ return {
         html = { "htmlbeautifier" },
         css = { { "prettierd", "prettier" } },
         scss = { { "prettierd", "prettier" } },
+        cpp = { "clang_format" },
+        c = { "clang_format" }
       },
-    })
+    }) 
 
     --	vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     --		pattern = "*",
