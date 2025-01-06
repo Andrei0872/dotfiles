@@ -6,6 +6,8 @@ return {
       -- stylua: ignore
       config = function()
         local dap = require("dap")
+        vim.api.nvim_set_keymap('n', '<F5>', [[:lua require"osv".launch({port = 8086})<CR>]], { noremap = true })
+
         dap.adapters.nlua = function(callback, conf)
           local adapter = {
             type = "server",
