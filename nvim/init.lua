@@ -11,7 +11,8 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- TODO: can I import all of these with one command?
 require("config/options")
-require("config/keymaps")
-require("config/commands")
+require("config/autocommands")
+
 require("lazy").setup("plugins")
