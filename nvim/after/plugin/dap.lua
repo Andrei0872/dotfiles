@@ -2,6 +2,8 @@ local dap = require("dap")
 local dapui = require("dapui")
 local utils = require("dap.utils")
 
+require("overseer").setup()
+
 -- Set logging levels to debug why adapters are not working
 -- logs are saved in ~.cache/nvim/dap.log
 dap.set_log_level("DEBUG")
