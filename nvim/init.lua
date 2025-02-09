@@ -13,6 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 
 -- TODO: can I import all of these with one command?
 require("config/options")
+require("config/remap")
 require("config/autocommands")
 
 require("lazy").setup("plugins")

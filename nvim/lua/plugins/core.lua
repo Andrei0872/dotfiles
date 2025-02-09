@@ -27,4 +27,5 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     cmd = { "ConformInfo" },
   },
+  "mfussenegger/nvim-lint",
 }
