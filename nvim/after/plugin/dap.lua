@@ -27,6 +27,23 @@ dap.adapters = {
       args = { "--port", "${port}" },
     },
   },
+  ["nlua"] = function(callback, conf)
+    local adapter = {
+      type = "server",
+      host = conf.host or "127.0.0.1",
+      port = conf.port or 8086,
+    }
+    if conf.start_neovim then
+      local dap_run = dap.run
+      dap.run = function(c)
+        adapter.port = c.port
+        adapter.host = c.host
+      end
+      require("osv").run_this()
+      dap.run = dap_run
+    end
+    callback(adapter)
+  end,
 }
 
 for _, language in ipairs({ "typescript", "javascript" }) do
@@ -76,6 +93,20 @@ for _, language in ipairs({ "typescript", "javascript" }) do
     },
   }
 end
+dap.configurations.lua = {
+  {
+    type = "nlua",
+    request = "attach",
+    name = "Run this file",
+    start_neovim = {},
+  },
+  {
+    type = "nlua",
+    request = "attach",
+    name = "Attach to running Neovim instance (port = 8086)",
+    port = 8086,
+  },
+}
 
 dap.configurations.rust = {
   {
@@ -161,3 +192,10 @@ end, "Toggle [U]I")
 map("e", function()
   dapui.eval()
 end, "Eval")
+
+vim.api.nvim_set_keymap(
+  "n",
+  "<F5>",
+  [[:lua require"osv".launch({port = 8086})<CR>]],
+  { noremap = true }
+)
