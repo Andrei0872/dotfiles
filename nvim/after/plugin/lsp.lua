@@ -1,5 +1,6 @@
 local lsp = vim.lsp
 local tele = require("telescope.builtin")
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 require("mason").setup({})
 require("mason-lspconfig").setup({
@@ -172,6 +173,7 @@ local lspconfig = require("lspconfig")
 lspconfig.ts_ls.setup({
   -- TODO: explore alternatives (https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/configs/ts_ls.lua#L15).
   root_dir = util.root_pattern(".git"),
+  capabilities = capabilities,
 })
 
 lspconfig.lua_ls.setup({
@@ -203,4 +205,32 @@ lspconfig.lua_ls.setup({
     end
     return true
   end,
+  capabilities = capabilities,
+})
+
+lspconfig.html.setup({
+  capabilities = capabilities,
+})
+lspconfig.cssls.setup({
+  capabilities = capabilities,
+})
+lspconfig.clangd.setup({
+  capabilities = capabilities,
+})
+
+lspconfig.jsonls.setup({
+  -- Lazy-load schemastore when needed
+  on_new_config = function(new_config)
+    new_config.settings.json.schemas = new_config.settings.json.schemas or {}
+    vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
+  end,
+  settings = {
+    json = {
+      format = {
+        enable = true,
+      },
+      validate = { enable = true },
+    },
+  },
+  capabilities = capabilities,
 })

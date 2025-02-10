@@ -20,4 +20,10 @@ return {
 
   -- optional `vim.uv` typings
   { "Bilal2453/luvit-meta", lazy = true },
+
+  {
+    "b0o/SchemaStore.nvim",
+    lazy = true,
+    version = false,
+  },
 }
