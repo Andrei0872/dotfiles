@@ -13,4 +13,9 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     event = { "BufReadPre", "BufNewFile" },
   },
+  {
+    "windwp/nvim-ts-autotag",
+    event = "VeryLazy",
+    opts = {},
+  },
 }

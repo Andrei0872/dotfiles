@@ -42,10 +42,23 @@ map("n", "gD", lsp.buf.declaration, "[G]oto [D]eclaration")
 map("n", "gI", tele.lsp_implementations, "[G]oto [I]mplementation")
 map("n", "gr", tele.lsp_references, "[G]oto [R]eferences")
 map("n", "gs", lsp.buf.signature_help, "[G]oto [S]ignature")
+map("n", "K", lsp.buf.hover, "Hover")
+map("n", "gK", lsp.buf.signature_help, "Signature Help")
+map("i", "<c-k>", lsp.buf.signature_help, "Signature Help")
 
 -- Useful lsp actions
 map("n", "<leader>rn", lsp.buf.rename, "[R]e[N]ame")
-map("n", "<leader>ca", lsp.buf.code_action, "[C]ode [A]ction")
+map({ "n", "v" }, "<leader>ca", lsp.buf.code_action, "[C]ode [A]ction")
+map("n", "<leader>cA", function()
+  vim.lsp.buf.code_action({
+    context = {
+      only = {
+        "source",
+      },
+      diagnostics = {},
+    },
+  })
+end, "Source action")
 
 -- File navigation
 map("n", "<leader>o", "<cmd>AerialToggle!<cr>", "[O]utline")
@@ -56,10 +69,10 @@ map("n", "]d", vim.diagnostic.goto_next, "Jump to the next diagnostic")
 map("n", "[d", vim.diagnostic.goto_prev, "Jump to the previous diagnostic")
 
 -- search symbols
-map("n", "<leader>Sd", require("telescope.builtin").lsp_document_symbols, "[S]ymbols: [D]ocument")
+map("n", "<leader>ss", require("telescope.builtin").lsp_document_symbols, "[S]ymbols: [D]ocument")
 map(
   "n",
-  "<leader>Sw",
+  "<leader>sS",
   require("telescope.builtin").lsp_dynamic_workspace_symbols,
   "[S]ymbols: [W]orkspace"
 )
