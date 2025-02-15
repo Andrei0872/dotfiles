@@ -18,4 +18,7 @@ return {
     event = "VeryLazy",
     opts = {},
   },
+  {
+    "ThePrimeagen/harpoon",
+  },
 }
