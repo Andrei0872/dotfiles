@@ -21,4 +21,10 @@ return {
   {
     "ThePrimeagen/harpoon",
   },
+
+  {
+    "stevearc/oil.nvim",
+    dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    lazy = false,
+  },
 }
