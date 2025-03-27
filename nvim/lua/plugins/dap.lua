@@ -1,14 +1,19 @@
 return {
-  "mfussenegger/nvim-dap",
-  dependencies = {
-    "rcarriga/nvim-dap-ui",
-    "nvim-neotest/nvim-nio",
+  {
+    "mfussenegger/nvim-dap",
+    dependencies = {
+      "rcarriga/nvim-dap-ui",
+      "nvim-neotest/nvim-nio",
 
-    "stevearc/overseer.nvim",
+      "stevearc/overseer.nvim",
 
-    "jbyuki/one-small-step-for-vimkind",
+      "jbyuki/one-small-step-for-vimkind",
 
-    -- NOTE: for Go.
-    -- "leoluz/nvim-dap-go",
+      -- NOTE: for Go.
+      -- "leoluz/nvim-dap-go",
+    },
+  },
+  {
+    "mxsdev/nvim-dap-vscode-js",
   },
 }
