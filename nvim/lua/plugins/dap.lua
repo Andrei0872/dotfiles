@@ -8,9 +8,6 @@ return {
       "stevearc/overseer.nvim",
 
       "jbyuki/one-small-step-for-vimkind",
-
-      -- NOTE: for Go.
-      -- "leoluz/nvim-dap-go",
     },
   },
   {

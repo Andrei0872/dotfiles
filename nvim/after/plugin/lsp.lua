@@ -247,3 +247,7 @@ lspconfig.jsonls.setup({
   },
   capabilities = capabilities,
 })
+
+lspconfig.gopls.setup({
+  capabilities = capabilities,
+})

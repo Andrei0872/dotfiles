@@ -5,7 +5,7 @@ local utils = require("dap.utils")
 require("overseer").setup()
 
 -- Set logging levels to debug why adapters are not working
--- logs are saved in ~.cache/nvim/dap.log
+-- logs are saved in ~.cache/nvim/dap.log.
 dap.set_log_level("DEBUG")
 
 dap.adapters = {
@@ -44,6 +44,14 @@ dap.adapters = {
     end
     callback(adapter)
   end,
+  ["go"] = {
+    type = "server",
+    port = "${port}",
+    executable = {
+      command = vim.fn.stdpath("data") .. "/mason/bin/dlv",
+      args = { "dap", "-l", "127.0.0.1:${port}" },
+    },
+  },
 }
 
 for _, language in ipairs({ "typescript", "javascript" }) do
@@ -118,6 +126,15 @@ dap.configurations.rust = {
     program = function()
       return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
     end,
+  },
+}
+
+dap.configurations.go = {
+  {
+    type = "go",
+    name = "Debug file",
+    request = "launch",
+    program = "${file}",
   },
 }
 
