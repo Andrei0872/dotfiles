@@ -16,7 +16,16 @@ require("harpoon").setup({
 
   -- set marks specific to each git branch inside git repository
   mark_branch = true,
+
+  menu = {
+    width = vim.api.nvim_win_get_width(0) - 90,
+  },
 })
 
 vim.keymap.set("n", "<leader>ha", require("harpoon.mark").add_file, { desc = "Harpoon - add file" })
-vim.keymap.set("n", "<leader>hh", require("harpoon.ui").toggle_quick_menu, { desc = "Harpoon - toggle menu" })
+vim.keymap.set(
+  "n",
+  "<leader>hh",
+  require("harpoon.ui").toggle_quick_menu,
+  { desc = "Harpoon - toggle menu" }
+)
