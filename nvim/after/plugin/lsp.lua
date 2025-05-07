@@ -17,6 +17,7 @@ require("mason-lspconfig").setup({
     "ts_ls",
     "yamlls",
     "html",
+    "bzl",
   },
   handlers = {
     html = function()
@@ -249,5 +250,9 @@ lspconfig.jsonls.setup({
 })
 
 lspconfig.gopls.setup({
+  capabilities = capabilities,
+})
+
+lspconfig.bzl.setup({
   capabilities = capabilities,
 })

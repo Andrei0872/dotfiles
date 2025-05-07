@@ -18,6 +18,7 @@ require("nvim-treesitter.configs").setup({
     "bash",
     "css",
     "just",
+    "starlark",
   },
   sync_install = false,
   auto_install = true,
