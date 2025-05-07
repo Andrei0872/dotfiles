@@ -26,4 +26,10 @@ return {
     lazy = true,
     version = false,
   },
+
+  {
+    "mrcjkb/rustaceanvim",
+    version = "^6",
+    lazy = false,
+  },
 }
