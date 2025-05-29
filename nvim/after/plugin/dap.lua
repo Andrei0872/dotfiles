@@ -44,14 +44,25 @@ dap.adapters = {
     end
     callback(adapter)
   end,
-  ["go"] = {
-    type = "server",
-    port = "${port}",
-    executable = {
-      command = vim.fn.stdpath("data") .. "/mason/bin/dlv",
-      args = { "dap", "-l", "127.0.0.1:${port}" },
-    },
-  },
+  ["go"] = function(callback, conf)
+    if conf.request == "attach" and conf.mode == "remote" then
+      local port = conf.port
+      callback({
+        type = "server",
+        port = assert(port, "`connect.port` is required"),
+        host = conf.host or "127.0.0.1",
+      })
+    else
+      callback({
+        type = "server",
+        port = "${port}",
+        executable = {
+          command = vim.fn.stdpath("data") .. "/mason/bin/dlv",
+          args = { "dap", "-l", "127.0.0.1:${port}" },
+        },
+      })
+    end
+  end,
 }
 
 for _, language in ipairs({ "typescript", "javascript" }) do
@@ -135,6 +146,30 @@ dap.configurations.go = {
     name = "Debug file",
     request = "launch",
     program = "${file}",
+  },
+  {
+    type = "go",
+    name = "[Docker] Attach to debug server",
+    request = "attach",
+    host = "127.0.0.1",
+    port = "2345",
+    mode = "remote",
+    cwd = vim.fn.getcwd(),
+    substitutePath = {
+      {
+        from = "/home/andu/go/src/github.com/docker/docker",
+        to = "/go/src/github.com/docker/docker",
+      },
+    },
+  },
+  {
+    type = "go",
+    name = "Attach to debug server",
+    request = "attach",
+    processId = utils.pick_process,
+    mode = "local",
+    cwd = vim.fn.getcwd(),
+    custom = "foo",
   },
 }
 
