@@ -18,3 +18,5 @@ require("config/autocommands")
 require("config/commands")
 
 require("lazy").setup("plugins")
+
+vim.cmd([[colorscheme habamax]])
