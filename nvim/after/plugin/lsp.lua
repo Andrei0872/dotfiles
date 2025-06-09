@@ -18,6 +18,7 @@ require("mason-lspconfig").setup({
     "yamlls",
     "html",
     "bzl",
+    "bashls",
   },
   handlers = {
     html = function()
@@ -254,5 +255,9 @@ lspconfig.gopls.setup({
 })
 
 lspconfig.bzl.setup({
+  capabilities = capabilities,
+})
+
+lspconfig.bashls.setup({
   capabilities = capabilities,
 })
