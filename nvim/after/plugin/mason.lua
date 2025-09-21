@@ -9,6 +9,7 @@ require("mason-tool-installer").setup({
     "shellcheck",
     "shfmt",
     "delve",
+    "eslint_d",
   },
   auto_update = true,
 })

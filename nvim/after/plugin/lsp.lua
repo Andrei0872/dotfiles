@@ -6,7 +6,6 @@ require("mason").setup({})
 require("mason-lspconfig").setup({
   ensure_installed = {
     "clangd",
-    "eslint_d",
     "gopls",
     "jsonls",
     "lua_ls",
@@ -259,5 +258,21 @@ lspconfig.bzl.setup({
 })
 
 lspconfig.bashls.setup({
+  capabilities = capabilities,
+})
+
+lspconfig.yamlls.setup({
+  settings = {
+    yaml = {
+      schemaStore = {
+        enable = false,
+        -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+        url = "",
+      },
+      schemas = {
+        ["kubernetes"] = "*.yaml",
+      },
+    },
+  },
   capabilities = capabilities,
 })
