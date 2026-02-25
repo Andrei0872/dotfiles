@@ -1,8 +1,11 @@
 [window]
 
-decorations = "Full"
+decorations = "Buttonless"
+padding = { x = 3, y = 3 }
+dynamic_padding = true
+opacity = 0.9
 
 [font]
 
 normal.family = "JetBrains Mono"
-
+size = 13.3
