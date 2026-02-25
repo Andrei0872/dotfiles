@@ -2,9 +2,8 @@
 
 ## Prerequisites
 
-```bash
-sudo apt install luarocks
-```
+* luarocks
+* go
 
 Recommended to have installed:
 
