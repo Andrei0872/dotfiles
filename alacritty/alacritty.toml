@@ -9,3 +9,8 @@ opacity = 0.9
 
 normal.family = "JetBrains Mono"
 size = 13.3
+
+[keyboard]
+bindings = [
+    { key = "Space", mods = "Command|Shift", action = "ToggleViMode" }
+]
