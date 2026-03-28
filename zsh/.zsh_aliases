@@ -1,2 +1,3 @@
 alias -g g=git
 alias -g gco='git checkout -b'
+alias -g glo='git log --oneline'
