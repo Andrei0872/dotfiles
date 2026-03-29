@@ -1,6 +1,7 @@
 alias -g g=git
 alias -g gco='git checkout -b'
 alias -g glo='git log --oneline'
+alias -g gpu='git push -u origin $(git branch --show-current)'
 
 alias -g d='docker'
 alias -g dco='docker compose'
