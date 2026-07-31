@@ -62,6 +62,10 @@ RPS2=$RPS1
 
 export PATH="$HOME/.local/bin:$PATH"
 
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^Xe' edit-command-line
+
 # pnpm
 export PNPM_HOME="/Users/andrei/Library/pnpm"
 case ":$PATH:" in
@@ -69,3 +73,6 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# Go
+export PATH="$HOME/go/bin:$PATH"
