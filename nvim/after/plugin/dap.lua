@@ -152,7 +152,9 @@ dap.configurations.go = {
     name = "[Docker] Attach to debug server",
     request = "attach",
     host = "127.0.0.1",
-    port = "2345",
+    port = function()
+      return tonumber(vim.fn.input("Port: ", "2345"))
+    end,
     mode = "remote",
     cwd = vim.fn.getcwd(),
     substitutePath = {
