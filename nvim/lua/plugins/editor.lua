@@ -27,4 +27,8 @@ return {
     dependencies = { { "echasnovski/mini.icons", opts = {} } },
     lazy = false,
   },
+
+  {
+    "samir-roy/code-bridge.nvim",
+  },
 }
