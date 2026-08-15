@@ -91,3 +91,13 @@ vim.keymap.set("n", "<leader>sk", "<cmd>Telescope keymaps<cr>", { desc = "Keymap
 vim.keymap.set("n", "<leader>fg", function()
   require("telescope").extensions.live_grep_args.live_grep_args()
 end, { desc = "live_grep with args" })
+
+vim.keymap.set("n", "<leader>fg", function()
+  local dir = require("oil").get_current_dir()
+  require("telescope.builtin").live_grep({ search_dirs = dir and { dir } or nil })
+end)
+
+vim.keymap.set("n", "<leader>ff", function()
+  local dir = require("oil").get_current_dir()
+  require("telescope.builtin").find_files({ cwd = dir })
+end)
