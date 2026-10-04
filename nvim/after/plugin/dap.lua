@@ -149,7 +149,7 @@ dap.configurations.go = {
   },
   {
     type = "go",
-    name = "[Docker] Attach to debug server",
+    name = "Attach to debug server",
     request = "attach",
     host = "127.0.0.1",
     port = function()
@@ -361,6 +361,51 @@ map("b", dap.toggle_breakpoint, "Toggle [B]reakpoint")
 map("B", function()
   dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
 end, "Set [B]reakpoint")
+
+do
+  local dap_breakpoints = require("dap.breakpoints")
+  local stashed_breakpoints = nil
+
+  local function broadcast_breakpoints(bps)
+    local function go(lsessions)
+      for _, lsession in pairs(lsessions) do
+        lsession:set_breakpoints(bps)
+        go(lsession.children)
+      end
+    end
+    go(dap.sessions())
+  end
+
+  local function toggle_all_breakpoints()
+    if stashed_breakpoints == nil then
+      local bps = dap_breakpoints.get()
+      if vim.tbl_isempty(bps) then
+        vim.notify("No breakpoints to disable", vim.log.levels.INFO)
+        return
+      end
+      stashed_breakpoints = bps
+      dap.clear_breakpoints()
+      vim.notify("All breakpoints disabled", vim.log.levels.INFO)
+    else
+      for bufnr, bps in pairs(stashed_breakpoints) do
+        if vim.api.nvim_buf_is_valid(bufnr) then
+          for _, bp in ipairs(bps) do
+            dap_breakpoints.set({
+              condition = bp.condition,
+              hit_condition = bp.hitCondition,
+              log_message = bp.logMessage,
+            }, bufnr, bp.line)
+          end
+        end
+      end
+      broadcast_breakpoints(dap_breakpoints.get())
+      stashed_breakpoints = nil
+      vim.notify("All breakpoints re-enabled", vim.log.levels.INFO)
+    end
+  end
+
+  map("a", toggle_all_breakpoints, "Toggle [A]ll breakpoints (disable/re-enable)")
+end
 map("j", dap.down, "Down")
 map("k", dap.up, "Up")
 map("l", dap.run_last, "Run [L]ast")
