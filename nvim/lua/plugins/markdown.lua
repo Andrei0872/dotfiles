@@ -8,6 +8,10 @@ return {
     "antonk52/markdowny.nvim",
   },
   {
+    "HakonHarnes/img-clip.nvim",
+    ft = { "markdown" },
+  },
+  {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     build = "cd app && npm install",
