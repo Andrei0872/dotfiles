@@ -6,3 +6,10 @@ os:
   # Inside Neovim (`$NVIM` is set), `e` closes lazygit and opens the file in the
   # current Neovim instance; outside Neovim it just launches `nvim`.
   editPreset: "nvim-remote"
+
+keybinding:
+  universal:
+    prevItem: [<up>, k, <c-p>]
+    nextItem: [<down>, j, <c-n>]
+    # Default is <c-p>; moved so it doesn't clash with prevItem above.
+    createPatchOptionsMenu: <c-x>
