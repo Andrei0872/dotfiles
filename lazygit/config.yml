@@ -2,10 +2,21 @@
 # Lazygit config. See https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
 # Used by lazygit.nvim via `vim.g.lazygit_config_file_path` (see nvim/lua/plugins/git.lua).
 
+gui:
+  # "Review mode": the focused side panel (Files on startup) takes most of the
+  # left column's height; the others shrink but stay visible. Unlike
+  # `screenMode: half`, the left column stays put when focusing the diff.
+  expandFocusedSidePanel: true
+  # Large enough that unfocused panels (other than Status/Stash, which have a
+  # fixed height) shrink to just their title line.
+  expandedSidePanelWeight: 1000
+  scrollHeight: 10
+
 os:
-  # Inside Neovim (`$NVIM` is set), `e` closes lazygit and opens the file in the
-  # current Neovim instance; outside Neovim it just launches `nvim`.
   editPreset: "nvim-remote"
+  edit: '[ -z "$NVIM" ] && (nvim -- {{filename}}) || (nvim --server "$NVIM" --remote-expr "execute(''LazyGitHide'')" >/dev/null && nvim --server "$NVIM" --remote {{filename}})'
+  editAtLine: '[ -z "$NVIM" ] && (nvim +{{line}} -- {{filename}}) || (nvim --server "$NVIM" --remote-expr "execute(''LazyGitHide'')" >/dev/null && nvim --server "$NVIM" --remote {{filename}} && nvim --server "$NVIM" --remote-expr "execute(''{{line}}'')" >/dev/null)'
+  openDirInEditor: '[ -z "$NVIM" ] && (nvim -- {{dir}}) || (nvim --server "$NVIM" --remote-expr "execute(''LazyGitHide'')" >/dev/null && nvim --server "$NVIM" --remote {{dir}})'
 
 keybinding:
   universal:
