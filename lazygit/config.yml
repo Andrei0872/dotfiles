@@ -1,0 +1,8 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
+# Lazygit config. See https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
+# Used by lazygit.nvim via `vim.g.lazygit_config_file_path` (see nvim/lua/plugins/git.lua).
+
+os:
+  # Inside Neovim (`$NVIM` is set), `e` closes lazygit and opens the file in the
+  # current Neovim instance; outside Neovim it just launches `nvim`.
+  editPreset: "nvim-remote"
