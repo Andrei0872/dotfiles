@@ -97,7 +97,3 @@ vim.keymap.set("n", "<leader>fg", function()
   require("telescope.builtin").live_grep({ search_dirs = dir and { dir } or nil })
 end)
 
-vim.keymap.set("n", "<leader>ff", function()
-  local dir = require("oil").get_current_dir()
-  require("telescope.builtin").find_files({ cwd = dir })
-end)
