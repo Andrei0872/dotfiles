@@ -265,7 +265,21 @@ lspconfig.yamlls.setup({
         url = "",
       },
       schemas = {
-        ["kubernetes"] = "*.yaml",
+        ["kubernetes"] = { "*.yaml", "!docker-compose*.yaml", "!compose*.yaml" },
+        ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = {
+          "docker-compose*.yml",
+          "docker-compose*.yaml",
+          "compose*.yml",
+          "compose*.yaml",
+        },
+      },
+      customTags = {
+        "!reset scalar",
+        "!reset sequence",
+        "!reset mapping",
+        "!override scalar",
+        "!override sequence",
+        "!override mapping",
       },
     },
   },
