@@ -312,6 +312,57 @@ dap.configurations.go = {
   },
 }
 
+-- dap-ui renders each element in a single loop that awaits DAP requests
+-- (stackTrace, scopes, variables) without a timeout. If the adapter never
+-- answers one (e.g. stepping while a render is in flight), the loop blocks
+-- forever and the UI stops updating until `dapui.setup()` is re-run.
+-- Override the loop so a stuck render is cancelled and later events still render.
+-- Must run before `dapui.setup()`, which is where the render loops are created.
+do
+  local nio = require("nio")
+  local dapui_util = require("dapui.util")
+  local render_timeout_ms = 3000
+
+  dapui_util.create_render_loop = function(render)
+    local render_event = nio.control.event()
+
+    local task = nio.run(function()
+      while true do
+        render_event.wait()
+        render_event.clear()
+        local timed_out = nio.first({
+          function()
+            xpcall(render, function(msg)
+              local traceback = debug.traceback(msg, 1)
+              dapui_util.notify(("Rendering failed: %s"):format(traceback), vim.log.levels.WARN)
+            end)
+            return false
+          end,
+          function()
+            nio.sleep(render_timeout_ms)
+            return true
+          end,
+        })
+        if timed_out then
+          -- Render again with fresh state instead of waiting for the next event
+          render_event.set()
+        end
+        nio.sleep(10)
+      end
+    end)
+
+    -- Keep `dapui_util.stop_render_tasks()` (called by `dapui.setup()`) working
+    local render_tasks = select(2, debug.getupvalue(dapui_util.stop_render_tasks, 1))
+    if type(render_tasks) == "table" then
+      table.insert(render_tasks, task)
+    end
+
+    return function()
+      render_event.set()
+    end
+  end
+end
+
 dapui.setup({
   icons = { expanded = "▾", collapsed = "▸", current_frame = "*" },
   controls = {
