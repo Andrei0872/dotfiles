@@ -456,6 +456,60 @@ do
   end
 
   map("a", toggle_all_breakpoints, "Toggle [A]ll breakpoints (disable/re-enable)")
+
+  local stashed_conditional_breakpoints = nil
+
+  local function is_conditional(bp)
+    return bp.condition ~= nil or bp.hitCondition ~= nil
+  end
+
+  local function toggle_conditional_breakpoints()
+    local touched_bufs = {}
+    if stashed_conditional_breakpoints == nil then
+      local stash = {}
+      for bufnr, bps in pairs(dap_breakpoints.get()) do
+        for _, bp in ipairs(bps) do
+          if is_conditional(bp) then
+            stash[bufnr] = stash[bufnr] or {}
+            table.insert(stash[bufnr], bp)
+            dap_breakpoints.remove(bufnr, bp.line)
+            touched_bufs[bufnr] = true
+          end
+        end
+      end
+      if vim.tbl_isempty(stash) then
+        vim.notify("No conditional breakpoints to disable", vim.log.levels.INFO)
+        return
+      end
+      stashed_conditional_breakpoints = stash
+      vim.notify("Conditional breakpoints disabled", vim.log.levels.INFO)
+    else
+      for bufnr, bps in pairs(stashed_conditional_breakpoints) do
+        if vim.api.nvim_buf_is_valid(bufnr) then
+          for _, bp in ipairs(bps) do
+            dap_breakpoints.set({
+              condition = bp.condition,
+              hit_condition = bp.hitCondition,
+              log_message = bp.logMessage,
+            }, bufnr, bp.line)
+          end
+          touched_bufs[bufnr] = true
+        end
+      end
+      stashed_conditional_breakpoints = nil
+      vim.notify("Conditional breakpoints re-enabled", vim.log.levels.INFO)
+    end
+
+    -- Resend each touched buffer's remaining breakpoints, including empty
+    -- lists, so the adapter drops the removed ones
+    local bps = {}
+    for bufnr in pairs(touched_bufs) do
+      bps[bufnr] = dap_breakpoints.get(bufnr)[bufnr] or {}
+    end
+    broadcast_breakpoints(bps)
+  end
+
+  map("A", toggle_conditional_breakpoints, "Toggle conditional breakpoints (disable/re-enable)")
 end
 map("j", dap.down, "Down")
 map("k", dap.up, "Up")
