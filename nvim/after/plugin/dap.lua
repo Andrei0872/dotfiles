@@ -518,6 +518,18 @@ map("p", dap.pause, "Pause")
 map("r", function()
   dap.repl.toggle()
 end, "Toggle REPL")
+do
+  -- Frames of the stopped goroutine only: unlike dap-ui's stacks element, it
+  -- doesn't request a stack trace for every goroutine on each stop
+  local frames_sidebar = nil
+  map("f", function()
+    if frames_sidebar == nil then
+      local widgets = require("dap.ui.widgets")
+      frames_sidebar = widgets.sidebar(widgets.frames)
+    end
+    frames_sidebar.toggle()
+  end, "Toggle [F]rames")
+end
 map("s", dap.session, "Session")
 map("t", dap.terminate, "Terminate")
 map("w", function()
