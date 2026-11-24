@@ -511,6 +511,47 @@ do
 
   map("A", toggle_conditional_breakpoints, "Toggle conditional breakpoints (disable/re-enable)")
 end
+
+-- Jump between breakpoints in the current buffer (wraps around).
+local function goto_breakpoint(dir)
+  local bufnr = vim.api.nvim_get_current_buf()
+  local bps = require("dap.breakpoints").get(bufnr)[bufnr] or {}
+  if #bps == 0 then
+    return vim.notify("No breakpoints in buffer", vim.log.levels.INFO)
+  end
+  local lines = vim.tbl_map(function(bp)
+    return bp.line
+  end, bps)
+  table.sort(lines)
+  local cur = vim.api.nvim_win_get_cursor(0)[1]
+  local target
+  if dir > 0 then
+    for _, l in ipairs(lines) do
+      if l > cur then
+        target = l
+        break
+      end
+    end
+    target = target or lines[1]
+  else
+    for i = #lines, 1, -1 do
+      if lines[i] < cur then
+        target = lines[i]
+        break
+      end
+    end
+    target = target or lines[#lines]
+  end
+  vim.cmd("normal! m'")
+  vim.api.nvim_win_set_cursor(0, { target, 0 })
+end
+
+vim.keymap.set("n", "]b", function()
+  goto_breakpoint(1)
+end, { desc = "Next breakpoint" })
+vim.keymap.set("n", "[b", function()
+  goto_breakpoint(-1)
+end, { desc = "Prev breakpoint" })
 map("j", dap.down, "Down")
 map("k", dap.up, "Up")
 map("l", dap.run_last, "Run [L]ast")
