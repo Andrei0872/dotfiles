@@ -563,10 +563,46 @@ do
   -- Frames of the stopped goroutine only: unlike dap-ui's stacks element, it
   -- doesn't request a stack trace for every goroutine on each stop
   local frames_sidebar = nil
+
+  -- Fit every window showing `buf` to its longest line (plus sign/fold columns)
+  local function fit_width(buf)
+    if not vim.api.nvim_buf_is_valid(buf) then
+      return
+    end
+    local width = 1
+    for _, line in ipairs(vim.api.nvim_buf_get_lines(buf, 0, -1, false)) do
+      width = math.max(width, vim.fn.strdisplaywidth(line))
+    end
+    for _, win in ipairs(vim.fn.win_findbuf(buf)) do
+      local textoff = vim.fn.getwininfo(win)[1].textoff
+      vim.api.nvim_win_set_width(win, math.min(width + textoff, vim.o.columns - 1))
+    end
+  end
+
   map("f", function()
     if frames_sidebar == nil then
       local widgets = require("dap.ui.widgets")
-      frames_sidebar = widgets.sidebar(widgets.frames)
+      local frames = vim.tbl_extend("force", widgets.frames, {
+        new_buf = function(...)
+          local buf = widgets.frames.new_buf(...)
+          -- Frames are rendered asynchronously, so resize on every content change
+          vim.api.nvim_buf_attach(buf, false, {
+            on_lines = function()
+              vim.schedule(function()
+                fit_width(buf)
+              end)
+            end,
+          })
+          return buf
+        end,
+        after_open = function(view)
+          vim.wo[view.win].winfixwidth = true
+          vim.schedule(function()
+            fit_width(view.buf)
+          end)
+        end,
+      })
+      frames_sidebar = widgets.sidebar(frames, nil, "topleft vsplit")
     end
     frames_sidebar.toggle()
   end, "Toggle [F]rames")
